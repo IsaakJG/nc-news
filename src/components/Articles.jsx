@@ -27,9 +27,3 @@ const Articles = () => {
 };
 
 export default Articles;
-
-{
-  /* <li key={article.article_id}>
-  <Link to={`/articles/${article.article_id}`}>{article.title}</Link>
-</li>; */
-}

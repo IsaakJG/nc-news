@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { newsApi } from "../utils/api";
+import { Link, useParams } from "react-router-dom";
+import { getArticles } from "../utils/api";
 import { Card } from "react-bootstrap";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const { topic } = useParams();
 
   useEffect(() => {
-    newsApi.get("/articles").then(({ data }) => setArticles(data.articles));
-  }, []);
+    getArticles(topic).then((articlesFromApi) => {
+      setArticles(articlesFromApi);
+    });
+  }, [topic]);
 
   return (
     <div>
@@ -27,9 +30,3 @@ const Articles = () => {
 };
 
 export default Articles;
-
-{
-  /* <li key={article.article_id}>
-  <Link to={`/articles/${article.article_id}`}>{article.title}</Link>
-</li>; */
-}

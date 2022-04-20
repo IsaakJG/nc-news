@@ -1,8 +1,17 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { GetTopics } from "../utils/GetTopics";
+import { useState, useEffect } from "react";
+import { getTopics } from "../utils/api";
 
 const NavBar = () => {
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    getTopics().then((topicsFromApi) => {
+      setTopics(topicsFromApi);
+    });
+  }, []);
+
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -12,11 +21,11 @@ const NavBar = () => {
             Home
           </Nav.Link>
           <NavDropdown title="Topics" id="basic-nav-dropdown">
-            {GetTopics().map((topic) => (
+            {topics.map((topic) => (
               <NavDropdown.Item
                 key={topic.slug}
                 as={Link}
-                to={`/topics/${topic.slug}`}
+                to={`/articles/${topic.slug}`}
               >
                 {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)}
               </NavDropdown.Item>

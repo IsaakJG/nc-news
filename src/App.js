@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Header from "./components/Header";
 import Articles from "./components/Articles";
-import Topics from "./components/Topics";
 
 function App() {
   return (
@@ -14,8 +13,9 @@ function App() {
       <NavBar />
       <Header />
       <Routes>
-        <Route path="/" element={<Articles />}></Route>
-        <Route path="/topics/:topic" element={<Topics />}></Route>
+        <Route path="/" element={<Articles />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/articles/:topic" element={<Articles />} />
       </Routes>
     </div>
   );

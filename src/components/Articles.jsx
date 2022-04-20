@@ -23,6 +23,9 @@ const Articles = () => {
               <Card.Text>By {article.author}</Card.Text>
             </Card.Body>
           </Link>
+          <Card.Footer>
+            <small className="text-muted">Topic: {article.topic}</small>
+          </Card.Footer>
         </Card>
       ))}
     </div>

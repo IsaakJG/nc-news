@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { singleArticle } from "../utils/api";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+
+import Vote from "./Vote";
 
 const SingleArticle = () => {
+  //STATES
   const [article, setArticle] = useState([]);
   const [err, setErr] = useState(null);
+
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -37,14 +41,7 @@ const SingleArticle = () => {
           <Card.Title>{article.title}</Card.Title>
           <Card.Text>By {article.author}</Card.Text>
           <Card.Text>{article.body}</Card.Text>
-          <Button variant="outline-success" size="sm">
-            👍
-          </Button>
-          <span> </span>
-          <Button variant="outline-danger" size="sm">
-            👎
-          </Button>
-          <Card.Text>Votes: 23</Card.Text>
+          <Vote votes={article.votes} article_id={article.article_id} />
           <Card.Footer>
             <small className="text-muted">Topic: {article.topic}</small>
           </Card.Footer>

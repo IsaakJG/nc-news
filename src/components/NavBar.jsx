@@ -25,7 +25,7 @@ const NavBar = () => {
               <NavDropdown.Item
                 key={topic.slug}
                 as={Link}
-                to={`/articles/${topic.slug}`}
+                to={`/${topic.slug}`}
               >
                 {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)}
               </NavDropdown.Item>

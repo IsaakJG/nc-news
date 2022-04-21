@@ -5,19 +5,29 @@ import { patchUpVote, patchDownVote } from "../utils/api";
 const Vote = ({ votes, article_id }) => {
   const [voteCount, setVoteCount] = useState(votes);
   const [checked, setChecked] = useState(false);
+  const [clickUpvote, setClickUpvote] = useState(false);
+  const [clickDownvote, setClickDownvote] = useState(false);
 
   const handleUpVoteClick = () => {
-    setVoteCount((currVoteCount) => currVoteCount + 1);
-    patchUpVote(article_id).then((data) => {
-      setVoteCount(data);
-    });
+    if (!clickUpvote) {
+      setVoteCount((currVoteCount) => currVoteCount + 1);
+      patchUpVote(article_id).then((data) => {
+        setVoteCount(data);
+      });
+      setClickUpvote(true);
+      setClickDownvote(false);
+    }
   };
 
   const handleDownVoteClick = () => {
-    setVoteCount((currVoteCount) => currVoteCount - 1);
-    patchDownVote(article_id).then((data) => {
-      setVoteCount(data);
-    });
+    if (!clickDownvote) {
+      setVoteCount((currVoteCount) => currVoteCount - 1);
+      patchDownVote(article_id).then((data) => {
+        setVoteCount(data);
+      });
+      setClickDownvote(true);
+      setClickUpvote(false);
+    }
   };
 
   return (

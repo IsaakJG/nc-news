@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { singleArticle } from "../utils/api";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 const SingleArticle = () => {
   const [article, setArticle] = useState([]);
@@ -37,6 +37,14 @@ const SingleArticle = () => {
           <Card.Title>{article.title}</Card.Title>
           <Card.Text>By {article.author}</Card.Text>
           <Card.Text>{article.body}</Card.Text>
+          <Button variant="outline-success" size="sm">
+            👍
+          </Button>
+          <span> </span>
+          <Button variant="outline-danger" size="sm">
+            👎
+          </Button>
+          <Card.Text>Votes: 23</Card.Text>
           <Card.Footer>
             <small className="text-muted">Topic: {article.topic}</small>
           </Card.Footer>

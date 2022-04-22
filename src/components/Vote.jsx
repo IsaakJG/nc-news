@@ -4,7 +4,6 @@ import { patchUpVote, patchDownVote } from "../utils/api";
 
 const Vote = ({ votes, article_id }) => {
   const [voteCount, setVoteCount] = useState(votes);
-  const [checked, setChecked] = useState(false);
   const [clickUpvote, setClickUpvote] = useState(false);
   const [clickDownvote, setClickDownvote] = useState(false);
 

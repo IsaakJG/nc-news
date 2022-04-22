@@ -46,3 +46,17 @@ export const patchDownVote = (article_id) => {
       return data.data.article.votes;
     });
 };
+
+export const getComments = (article_id) => {
+  return newsApi.get(`/articles/${article_id}/comments`).then(({ data }) => {
+    return data.comments;
+  });
+};
+
+export const postComment = (article_id, newComment) => {
+  return newsApi
+    .post(`/articles/${article_id}/comments`, newComment)
+    .then(({ data }) => {
+      return data.comment;
+    });
+};

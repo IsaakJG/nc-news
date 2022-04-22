@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getComments } from "../utils/api";
-import { Card } from "react-bootstrap";
+import { getComments, deleteComment } from "../utils/api";
+import { Card, Button } from "react-bootstrap";
 
 import PostComment from "./PostComment";
 
@@ -21,6 +21,23 @@ const Comments = () => {
         setErr("Comments not found 😢");
       });
   }, [article_id]);
+
+  const handleDeleteClick = (comment_id) => {
+    deleteComment(comment_id).catch((err) => {
+      setErr("Could not delete comment 😢 Please try again!");
+      console.log(err.response);
+    });
+    let newComments = [...comments];
+    for (let i = 0; i < newComments.length; i++) {
+      if (
+        newComments[i].comment_id === comment_id &&
+        newComments[i].author === "jessjelly"
+      ) {
+        newComments.splice(i, 1);
+      }
+    }
+    setComments(newComments);
+  };
 
   if (err)
     return (
@@ -45,6 +62,15 @@ const Comments = () => {
             <Card.Text style={{ fontSize: "10px" }}>
               By {comment.author}
             </Card.Text>
+            {comment.author === "jessjelly" && (
+              <Button
+                onClick={() => handleDeleteClick(comment.comment_id)}
+                variant="outline-danger"
+                size="sm"
+              >
+                Delete Comment 🗑
+              </Button>
+            )}
           </Card.Body>
           <Card.Footer style={{ fontSize: "10px" }}>
             <small className="text-muted">

@@ -62,13 +62,15 @@ const Comments = () => {
             <Card.Text style={{ fontSize: "10px" }}>
               By {comment.author}
             </Card.Text>
-            <Button
-              onClick={() => handleDeleteClick(comment.comment_id)}
-              variant="outline-danger"
-              size="sm"
-            >
-              Delete Comment 🗑
-            </Button>
+            {comment.author === "jessjelly" && (
+              <Button
+                onClick={() => handleDeleteClick(comment.comment_id)}
+                variant="outline-danger"
+                size="sm"
+              >
+                Delete Comment 🗑
+              </Button>
+            )}
           </Card.Body>
           <Card.Footer style={{ fontSize: "10px" }}>
             <small className="text-muted">

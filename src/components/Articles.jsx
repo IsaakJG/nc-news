@@ -8,6 +8,8 @@ const Articles = () => {
   const { topic } = useParams();
   const [sort_by, setSort_by] = useState("created_at");
   const [order, setOrder] = useState("DESC");
+  const [sortButtonName, setSortButtonName] = useState("");
+  const [orderButtonName, setOrderButtonName] = useState("");
 
   useEffect(() => {
     getArticles(topic, sort_by, order).then((articlesFromApi) => {
@@ -16,27 +18,44 @@ const Articles = () => {
   }, [topic, sort_by, order]);
 
   const handleSortSelect = (e) => {
+    console.log(typeof e);
     setSort_by(e);
+    if (e === "title") {
+      setSortButtonName("Title");
+    } else if (e === "created_at") {
+      setSortButtonName("Date");
+    } else if (e === "comment_count") {
+      setSortButtonName("Comment Count");
+    } else if (e === "votes") {
+      setSortButtonName("Votes");
+    }
   };
 
   const handleOrderSelect = (e) => {
     setOrder(e);
+    setOrderButtonName(e);
   };
 
   return (
     <>
       <Dropdown className="d-inline mx-2" onSelect={handleSortSelect}>
-        <Dropdown.Toggle id="dropdown-autoclose-true">Sort By:</Dropdown.Toggle>
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Sort By: {sortButtonName}
+        </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item eventKey="title">Title</Dropdown.Item>
+          <Dropdown.Item value="Title" eventKey="title">
+            Title
+          </Dropdown.Item>
           <Dropdown.Item eventKey="created_at">Date</Dropdown.Item>
           <Dropdown.Item eventKey="comment_count">Comment Count</Dropdown.Item>
           <Dropdown.Item eventKey="votes">Votes</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <Dropdown className="d-inline mx-2" onSelect={handleOrderSelect}>
-        <Dropdown.Toggle id="dropdown-autoclose-true">Order:</Dropdown.Toggle>
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Order: {orderButtonName}
+        </Dropdown.Toggle>
 
         <Dropdown.Menu>
           <Dropdown.Item eventKey="ASC">Ascending</Dropdown.Item>

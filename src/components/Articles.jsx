@@ -1,34 +1,66 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArticles } from "../utils/api";
-import { Card } from "react-bootstrap";
+import { Card, Dropdown } from "react-bootstrap";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const { topic } = useParams();
+  const [sort_by, setSort_by] = useState("created_at");
+  const [order, setOrder] = useState("DESC");
 
   useEffect(() => {
-    getArticles(topic).then((articlesFromApi) => {
+    getArticles(topic, sort_by, order).then((articlesFromApi) => {
       setArticles(articlesFromApi);
     });
-  }, [topic]);
+  }, [topic, sort_by, order]);
+
+  const handleSortSelect = (e) => {
+    setSort_by(e);
+  };
+
+  const handleOrderSelect = (e) => {
+    setOrder(e);
+  };
 
   return (
-    <div>
+    <>
+      <Dropdown className="d-inline mx-2" onSelect={handleSortSelect}>
+        <Dropdown.Toggle id="dropdown-autoclose-true">Sort By:</Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item eventKey="title">Title</Dropdown.Item>
+          <Dropdown.Item eventKey="created_at">Date</Dropdown.Item>
+          <Dropdown.Item eventKey="comment_count">Comment Count</Dropdown.Item>
+          <Dropdown.Item eventKey="votes">Votes</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Dropdown className="d-inline mx-2" onSelect={handleOrderSelect}>
+        <Dropdown.Toggle id="dropdown-autoclose-true">Order:</Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item eventKey="ASC">Ascending</Dropdown.Item>
+          <Dropdown.Item eventKey="DESC">Descending</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       {articles.map((article) => (
-        <Card key={article.article_id}>
-          <Link to={`/articles/${article.article_id}`}>
-            <Card.Body>
+        <Card className="my-2" key={article.article_id}>
+          <Card.Body>
+            <Link to={`/articles/${article.article_id}`}>
               <Card.Title>{article.title}</Card.Title>
-              <Card.Text>By {article.author}</Card.Text>
-            </Card.Body>
-          </Link>
+            </Link>
+            <Card.Text className="my-1">Author: {article.author}</Card.Text>
+            <Card.Text className="my-1">
+              Comments: {article.comment_count}
+            </Card.Text>
+            <Card.Text className="my-1">Votes: {article.votes}</Card.Text>
+          </Card.Body>
           <Card.Footer>
             <small className="text-muted">Topic: {article.topic}</small>
           </Card.Footer>
         </Card>
       ))}
-    </div>
+    </>
   );
 };
 

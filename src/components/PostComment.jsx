@@ -15,6 +15,10 @@ const PostComment = ({ article_id, setComments }) => {
         const newComments = [response, ...currComments];
         return newComments;
       });
+      setNewComment({
+        username: "jessjelly",
+        body: "",
+      });
     });
   };
 

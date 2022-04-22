@@ -4,16 +4,17 @@ export const newsApi = axios.create({
   baseURL: "https://northcoders-news-isaak.herokuapp.com/api",
 });
 
-export const getArticles = (topic) => {
+export const getArticles = (topic, sort_by, order) => {
   return newsApi
-    .get("/articles", {
+    .get(`/articles`, {
       params: {
         topic,
+        sort_by,
+        order,
       },
     })
     .then(({ data }) => {
-      const articleArray = data.articles;
-      return articleArray;
+      return data.articles;
     });
 };
 

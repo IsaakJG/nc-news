@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Form, Button } from "react-bootstrap";
 import { postComment } from "../utils/api";
 
 const PostComment = ({ article_id, setComments }) => {
@@ -23,17 +23,22 @@ const PostComment = ({ article_id, setComments }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        value={newComment.body}
-        onChange={(e) =>
-          setNewComment((currComment) => {
-            return { ...currComment, body: e.target.value };
-          })
-        }
-      ></textarea>
-      <button>Post</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+        <Form.Control
+          placeholder="Add a comment..."
+          value={newComment.body}
+          onChange={(e) =>
+            setNewComment((currComment) => {
+              return { ...currComment, body: e.target.value };
+            })
+          }
+        />
+      </Form.Group>
+      <Button variant="success" type="submit">
+        Comment!
+      </Button>
+    </Form>
   );
 };
 

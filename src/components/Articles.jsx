@@ -4,8 +4,10 @@ import { getArticles } from "../utils/api";
 import { Card, Dropdown } from "react-bootstrap";
 
 const Articles = () => {
-  const [articles, setArticles] = useState([]);
   const { topic } = useParams();
+
+  const [articles, setArticles] = useState([]);
+  const [err, setErr] = useState(null);
   const [sort_by, setSort_by] = useState("created_at");
   const [order, setOrder] = useState("DESC");
   const [sortButtonName, setSortButtonName] = useState("");
@@ -35,6 +37,15 @@ const Articles = () => {
     setOrder(e);
     setOrderButtonName(e);
   };
+
+  if (err)
+    return (
+      <Card className="my-2">
+        <Card.Body>
+          <Card.Title>{err}</Card.Title>
+        </Card.Body>
+      </Card>
+    );
 
   return (
     <>

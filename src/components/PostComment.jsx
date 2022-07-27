@@ -33,6 +33,7 @@ const PostComment = ({ article_id, setComments }) => {
               return { ...currComment, body: e.target.value };
             })
           }
+          required
         />
       </Form.Group>
       <Button variant="success" type="submit">

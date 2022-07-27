@@ -53,8 +53,9 @@ const Comments = () => {
   return (
     <>
       <br></br>
-      <Card.Text>Comments:</Card.Text>
       <PostComment article_id={article_id} setComments={setComments} />
+      <br></br>
+      <Card.Text>Comments:</Card.Text>
       {comments.map((comment) => (
         <Card className="my-2" key={comment.comment_id}>
           <Card.Body>
